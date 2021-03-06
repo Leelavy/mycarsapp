@@ -16,10 +16,14 @@ module Api
         render json: CarSerializer.new(cars).serialized_json
       end
 
-      def show 
-        #return specific car found by title
-        car = Car.find(params[:id])
-        render json: CarSerializer.new(car, options).serialized_json
+      def show
+        begin
+          #return specific car found by title
+          car = Car.find(params[:id])
+          render json: CarSerializer.new(car, options).serialized_json
+        rescue => e
+          render json: {error: e}
+        end
       end
 
       def create 

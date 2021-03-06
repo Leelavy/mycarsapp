@@ -17,9 +17,13 @@ module Api
       end
 
       def show 
-        #return specific driver found by title and all its cars
-        driver = Driver.find(params[:id])
-        render json: DriverSerializer.new(driver, options).serialized_json
+        begin
+          #return specific driver found by title and all its cars
+          driver = Driver.find(params[:id])
+          render json: DriverSerializer.new(driver, options).serialized_json
+        rescue => e
+          render json: {error: e}
+        end
       end
 
       def create 
