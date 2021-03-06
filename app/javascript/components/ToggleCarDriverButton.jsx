@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
-import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 const useStyles = makeStyles((theme) => ({
-  toggleButtonGroup: {
+  toggleContainer: {
+    maxHeight: 40,
+    margin: theme.spacing(1),
+  },
+  toggleButton: {
     color: 'white',
   },
 }));
@@ -14,25 +18,27 @@ const useStyles = makeStyles((theme) => ({
 const ToggleCarDriverButton = () => {
 
   const classes = useStyles();
-  const [carDriverToggle, setCarDriverToggle] = React.useState('left');
+  const [carDriverToggle, setCarDriverToggle] = useState('cars');
 
   const handleToggle = (event, toggled) => {
     setCarDriverToggle(toggled);
   };
 
+  console.log(carDriverToggle);
+
   return (
     <ToggleButtonGroup
-      className={classes.toggleButtonGroup}
+      className={classes.toggleContainer}
       value={carDriverToggle}
       exclusive
       onChange={handleToggle}
       aria-label="carDriverToggle"
     >
-      <ToggleButton value="cars" aria-label="left aligned">
-        <FormatAlignLeftIcon />
+      <ToggleButton className={classes.toggleButton} value="cars" aria-label="left aligned" >
+        <DriveEtaIcon />
       </ToggleButton>
-      <ToggleButton value="drivers" aria-label="right aligned">
-        <FormatAlignRightIcon />
+      <ToggleButton className={classes.toggleButton} value="drivers" aria-label="right aligned">
+        <PeopleAltIcon />
       </ToggleButton>
     </ToggleButtonGroup>
   );

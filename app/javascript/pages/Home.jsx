@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Logo from '../../assets/images/motorino-logo.svg'
 import CustomizedSelect from '../components/CustomizedSelect';
 import ToggleCarDriverButton from '../components/ToggleCarDriverButton';
+import CustomizedTable from '../components/CustomizedTable';
 import { menuItems } from '../dummyData';
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
         <CustomizedSelect menuItems={menuItems} />
         <ToggleCarDriverButton />
       </StyledSelectDiv>
+      <CustomizedTable />
     </StyledContainer>
   );
 }
@@ -34,6 +36,7 @@ const StyledLogo = styled(motion.img)`
 
 const StyledSelectDiv = styled(motion.div)`
   display: flex;
+  align-items: flex-end;
   justify-content: center;
   width: 100%;
 `;
