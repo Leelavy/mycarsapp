@@ -8,7 +8,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
     background: ${props => props.theme.palette.common.body};
   }
 

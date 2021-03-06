@@ -1,10 +1,10 @@
 const themeProps = {
   palette: {
     primary: {
-      main: '#00286B',
+      main: '#51669A',
     },
     secondary: {
-      main: '#005DAF',
+      main: '#152346',
     },
     action: {
       disabledBackground: '#6a9ecc',
@@ -14,11 +14,15 @@ const themeProps = {
       paper: '#DEE2EB',
       card: '#DEE2EB',
       bullet: '#EAEDF2',
-      body: '#EAEDF2',
+      body: 'linear-gradient(180deg, rgba(43,61,108,1) 0%, rgba(10,25,62,1) 100%)',
+      button: '#D1D5DD',
+      title: '#D1D5DD',
+      bold: '#f57c6e',
+      special: '#51F091'
     },
   },
   typography: {
-    fontFamily: "'Montserrat', sans-serif",
+    fontFamily: "'Roboto', sans-serif",
   },
 };
 
