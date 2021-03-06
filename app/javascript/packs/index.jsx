@@ -1,14 +1,25 @@
-// Run this example by adding <%= javascript_pack_tag 'hello_react' %> to the head of your layout file,
-// like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
-// of the page.
-
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import rootReducer from '../redux/reducers';
 import App from './App';
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancer(applyMiddleware(thunk))
+)
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <App />,
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
     document.body.appendChild(document.createElement('div')),
   )
 })
