@@ -7,8 +7,23 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb{
+      background-color: ${props => props.theme.palette.secondary.main};
+    }
+    &::-webkit-scrollbar-track{
+      background-color: ${props => props.theme.palette.primary.main};
+    }
+  }
+
   body {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     font-family: 'Roboto', sans-serif;
     background: ${props => props.theme.palette.common.body};
   }

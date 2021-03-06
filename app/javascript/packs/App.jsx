@@ -9,6 +9,8 @@ import NavBar from '../components/NavBar';
 import Home from '../pages/Home';
 import Drivers from '../pages/Drivers';
 import Cars from '../pages/Cars';
+import CarDetails from '../pages/CarDetails';
+import DriverDetails from '../pages/DriverDetails';
 
 const App = () => {
 
@@ -25,6 +27,8 @@ const App = () => {
               <Route exact path="/" component={Home} />
               <Route exact path="/cars" component={Cars} />
               <Route exact path="/drivers" component={Drivers} />
+              <Route exact path="/cars/:carId" component={CarDetails} />
+              <Route exact path="/drivers/:driverId" component={DriverDetails} />
             </StyledContent>
           </StyledContainer>
         </Switch>
@@ -33,14 +37,14 @@ const App = () => {
   );
 }
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(motion.div)`
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 2rem 0;
 `;
 
-const StyledContent = styled.div`
+const StyledContent = styled(motion.div)`
   width: 80%;
   display: flex;
   justify-content: center;

@@ -31,6 +31,16 @@ const rows = [
   createData('3', "mazda", "1990..."),
   createData('4', "mazda", "1990..."),
   createData('5', "mazda", "1990..."),
+  createData('1', "mazda", "1990..."),
+  createData('2', "mazda", "1990..."),
+  createData('3', "mazda", "1990..."),
+  createData('4', "mazda", "1990..."),
+  createData('5', "mazda", "1990..."),
+  createData('1', "mazda", "1990..."),
+  createData('2', "mazda", "1990..."),
+  createData('3', "mazda", "1990..."),
+  createData('4', "mazda", "1990..."),
+  createData('5', "mazda", "1990..."),
 ];
 
 const CustomizedTable = () => {

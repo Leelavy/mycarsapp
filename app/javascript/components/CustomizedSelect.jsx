@@ -50,6 +50,7 @@ const CustomizedSelect = ({ menuItems }) => {
   return (
     <FormControl className={classes.formControl}>
       <Select
+        MenuProps={{ disableScrollLock: true }}
         value={inputSelectVal}
         onChange={handleChange}
         displayEmpty
