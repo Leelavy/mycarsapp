@@ -29,7 +29,6 @@ const Drivers = () => {
   useEffect(() => {
     getAllDrivers()
       .then(resp => {
-        console.log(resp.data.data);
         setDrivers(resp.data.data)
       })
       .catch(resp => console.log(resp))

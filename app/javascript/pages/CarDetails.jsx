@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { pageAnimationFromBottom } from '../styles/animations';
 import { motion } from 'framer-motion';
+import { getCarById } from '../api/carsApi';
 
 const CarDetails = () => {
 
   const location = useLocation();
   const carId = decodeURI(location.pathname.split("/")[2]);
+  const [carDetails, setCarDetails] = useState({
+    title: '',
+    carType: '',
+    color: '',
+    drivers: [],
+  });
 
-  console.log(carId);
+  useEffect(() => {
+    getCarById(carId)
+      .then(resp => {
+        setCarDetails({
+          title: resp.data.data.attributes.title,
+          carType: resp.data.data.attributes.car_type,
+          color: resp.data.data.attributes.color,
+          drivers: resp.data.included,
+        });
+      })
+      .catch(resp => console.log(resp))
+  }, []);
 
   return (
     <motion.div
@@ -18,7 +36,19 @@ const CarDetails = () => {
       animate="show"
       exit="exit"
     >
-      Car details for car {carId}
+      <div>
+        <p>{carDetails.title}</p>
+        <p>{carDetails.carType}</p>
+        <p>{carDetails.color}</p>
+      </div>
+
+      {carDetails.drivers.map(driver => (
+        <div>
+          <p>{driver.attributes.name}</p>
+          <p>{driver.attributes.email}</p>
+          <p>{driver.attributes.date_of_birth}</p>
+        </div>
+      ))}
     </motion.div>
   );
 }

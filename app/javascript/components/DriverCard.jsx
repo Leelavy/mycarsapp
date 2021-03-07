@@ -41,7 +41,7 @@ const DriverCard = ({ driver }) => {
   const { name, email, date_of_birth } = driver.attributes;
 
   return (
-    <StyledLink to={`/drivers/${driver}`}>
+    <StyledLink to={`/drivers/${driver.id}`}>
       <Paper className={classes.paper}>
         <StyledName>{name}</StyledName>
         <StyledEmail>{email}</StyledEmail>
