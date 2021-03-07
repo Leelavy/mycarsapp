@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import CarCard from '../components/CarCard';
 import AddButton from '../components/AddButton';
 import { Link } from 'react-router-dom';
+import { getAllCars } from '../api/carsApi';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,6 +24,13 @@ const Cars = () => {
 
   const theme = useTheme();
   const classes = useStyles();
+  const [cars, setCars] = useState([]);
+
+  useEffect(() => {
+    getAllCars()
+      .then(resp => setCars(resp.data.data))
+      .catch(resp => console.log(resp))
+  }, [])
 
   return (
     <StyledContainer
@@ -38,10 +46,7 @@ const Cars = () => {
         </StyledTitleArea>
         <GridContainer>
           <StyledCarsGrid>
-            <CarCard />
-            <CarCard />
-            <CarCard />
-            <CarCard />
+            {cars.map(car => <CarCard car={car} />)}
           </StyledCarsGrid>
         </GridContainer>
       </Paper>

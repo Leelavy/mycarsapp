@@ -35,18 +35,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CarCard = () => {
+const CarCard = ({ car }) => {
 
   const classes = useStyles();
+  const { title, car_type, color } = car.attributes;
 
   return (
-    //should put here car's id
-    <StyledLink to={`/cars/${1}`}>
+    <StyledLink to={`/cars/${car.id}`}>
       <Paper className={classes.paper}>
-        <StyledCityName>Car</StyledCityName>
-        <StyledCountryName>model</StyledCountryName>
-        <Degrees>something</Degrees>
-        <WeatherText>lalala</WeatherText>
+        <StyledCarTitle>{title}</StyledCarTitle>
+        <StyledCarType>{car_type}</StyledCarType>
+        <StyledCarColor>{color}</StyledCarColor>
       </Paper>
     </StyledLink >
   );
@@ -57,18 +56,18 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const WeatherText = styled.p`
+const StyledCarColor = styled.p`
   font-weight: bold;
   margin: 0.2rem 0;
 `;
 
-const StyledCityName = styled.p`
+const StyledCarTitle = styled.p`
   font-weight: bold;
   font-size: 2rem;
   margin-bottom: 0.5rem;
 `;
 
-const StyledCountryName = styled.p`
+const StyledCarType = styled.p`
   font-weight: 400;
   font-size: 1rem;
   margin-bottom: 1rem;

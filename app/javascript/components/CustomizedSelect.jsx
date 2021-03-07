@@ -41,6 +41,7 @@ const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
   const classes = useStyles();
   const [inputSelectItem, setInputSelectItem] = useState({});
   const [placeholder, setPlaceHolder] = useState(`select a ${subject}`);
+  const [isDisabled, setIsDisable] = useState(false);
 
   const handleChange = (event) => {
     const item = event.target.value;
@@ -49,7 +50,13 @@ const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
   };
 
   useEffect(() => {
-    setPlaceHolder(`select a ${subject}`);
+    if (subject === null) {
+      setPlaceHolder(`You must choose either cars or drivers in the toggle to continue`);
+      setIsDisable(true);
+    } else {
+      setPlaceHolder(`select a ${subject}`);
+      setIsDisable(false)
+    }
     setInputSelectItem({});
   }, [subject]);
 
@@ -68,12 +75,13 @@ const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
         value={setInputSelectItem.id}
         onChange={handleChange}
         displayEmpty
+        disabled={isDisabled}
         className={classes.selectEmpty}
         inputProps={{ 'aria-label': 'Without label' }}
         renderValue={() => renderVal()}
         input={<BootstrapInput />}
       >
-        {menuItems && menuItems.map(item =>
+        {menuItems.length > 0 && menuItems.map(item =>
           (<MenuItem value={item} key={item.id}>{item[Object.keys(item)[1]]}</MenuItem>))
         }
       </Select>

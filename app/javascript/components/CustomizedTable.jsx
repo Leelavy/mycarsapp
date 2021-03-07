@@ -21,6 +21,18 @@ const useStyles = makeStyles({
   },
 });
 
+const formatTime = (timeToFormat) => {
+  let date = new Date(timeToFormat)
+  return date.toDateString();
+}
+
+const renderCell = (key, val) => {
+  if (key === 'created_at') {
+    return (<TableCell align="center">{formatTime(val)}</TableCell>);
+  }
+  return (<TableCell align="center">{val}</TableCell>);
+}
+
 const CustomizedTable = ({ tableData }) => {
   const classes = useStyles();
   const headlines = tableData[0] ? Object.keys(tableData[0]) : [];
@@ -40,7 +52,7 @@ const CustomizedTable = ({ tableData }) => {
             <TableBody>
               {tableData.map((row) => (
                 <TableRow key={row.id}>
-                  {Object.values(row).map(cellData => (<TableCell align="center">{cellData}</TableCell>))}
+                  {Object.keys(row).map(key => renderCell(key, row[key]))}
                 </TableRow>
               ))}
             </TableBody>
