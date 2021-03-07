@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { convertDate } from '../utils/utils';
 
 const useStyles = makeStyles({
   container: {
@@ -21,22 +22,16 @@ const useStyles = makeStyles({
   },
 });
 
-const formatTime = (timeToFormat) => {
-  let date = new Date(timeToFormat)
-  return date.toDateString();
-}
-
 const renderCell = (key, val) => {
   if (key === 'created_at') {
-    return (<TableCell align="center">{formatTime(val)}</TableCell>);
+    return (<TableCell align="center" key={key}>{convertDate(new Date(val))}</TableCell>);
   }
-  return (<TableCell align="center">{val}</TableCell>);
+  return (<TableCell align="center" key={key}>{val}</TableCell>);
 }
 
 const CustomizedTable = ({ tableData }) => {
   const classes = useStyles();
   const headlines = tableData[0] ? Object.keys(tableData[0]) : [];
-  console.log(tableData);
 
   return (
     <>
@@ -45,8 +40,8 @@ const CustomizedTable = ({ tableData }) => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                {headlines.map(headline =>
-                  (<TableCell align="center">{headline}</TableCell>))}
+                {headlines.length && headlines.map(headline =>
+                  (<TableCell align="center" key={headline}>{headline}</TableCell>))}
               </TableRow>
             </TableHead>
             <TableBody>
