@@ -10,6 +10,11 @@ module Api
         render json: {joined: drivers}
       end
 
+      def select
+        driversSelect = Driver.select('drivers.id, drivers.name');
+        render json: {selected: driversSelect}
+      end
+
       def index 
         #return all cars
         cars = Car.all

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       resources :cars, only: [:index, :show, :create]
       resources :drivers, only: [:index, :show, :create]
 
+      get 'selectcars', to: 'cars#select'
+      get 'selectdrivers', to: 'drivers#select'
       get 'cardrivers/:id', to: 'cars#cardrivers'
       get 'drivercars/:id', to: 'drivers#drivercars'
     end
