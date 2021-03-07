@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import DriverCard from '../components/DriverCard';
 import AddButton from '../components/AddButton';
 import { Link } from 'react-router-dom';
+import { getAllDrivers } from '../api/driversApi';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,6 +24,16 @@ const Drivers = () => {
 
   const theme = useTheme();
   const classes = useStyles();
+  const [drivers, setDrivers] = useState([]);
+
+  useEffect(() => {
+    getAllDrivers()
+      .then(resp => {
+        console.log(resp.data.data);
+        setDrivers(resp.data.data)
+      })
+      .catch(resp => console.log(resp))
+  }, [])
 
   return (
     <StyledContainer
@@ -38,10 +49,10 @@ const Drivers = () => {
         </StyledTitleArea>
         <GridContainer>
           <StyledCarsGrid>
-            <DriverCard />
-            <DriverCard />
-            <DriverCard />
-            <DriverCard />
+            {drivers.length > 0 &&
+              drivers.map(driver =>
+                <DriverCard driver={driver} key={driver.id} />
+              )}
           </StyledCarsGrid>
         </GridContainer>
       </Paper>

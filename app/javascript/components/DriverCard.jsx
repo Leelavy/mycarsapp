@@ -35,18 +35,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DriverCard = () => {
+const DriverCard = ({ driver }) => {
 
   const classes = useStyles();
+  const { name, email, date_of_birth } = driver.attributes;
 
   return (
-    //should put here drivers's id
-    <StyledLink to={`/drivers/${1}`}>
+    <StyledLink to={`/drivers/${driver}`}>
       <Paper className={classes.paper}>
-        <StyledCityName>Driver</StyledCityName>
-        <StyledCountryName>Name</StyledCountryName>
-        <Degrees>something</Degrees>
-        <WeatherText>lalala</WeatherText>
+        <StyledName>{name}</StyledName>
+        <StyledEmail>{email}</StyledEmail>
+        <StyledBirthDay>{date_of_birth}</StyledBirthDay>
       </Paper>
     </StyledLink >
   );
@@ -57,24 +56,19 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const WeatherText = styled.p`
-  font-weight: bold;
-  margin: 0.2rem 0;
-`;
-
-const StyledCityName = styled.p`
+const StyledName = styled.p`
   font-weight: bold;
   font-size: 2rem;
   margin-bottom: 0.5rem;
 `;
 
-const StyledCountryName = styled.p`
+const StyledEmail = styled.p`
   font-weight: 400;
   font-size: 1rem;
   margin-bottom: 1rem;
 `;
 
-const Degrees = styled.h1`
+const StyledBirthDay = styled.h1`
   margin: 1.5rem 0 0 2rem;
   font-size: 2rem;
   font-weight: bold;

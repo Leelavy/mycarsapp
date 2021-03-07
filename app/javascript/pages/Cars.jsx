@@ -46,7 +46,10 @@ const Cars = () => {
         </StyledTitleArea>
         <GridContainer>
           <StyledCarsGrid>
-            {cars.map(car => <CarCard car={car} />)}
+            {cars.length > 0 &&
+              cars.map(car =>
+                <CarCard car={car} key={car.id} />
+              )}
           </StyledCarsGrid>
         </GridContainer>
       </Paper>
