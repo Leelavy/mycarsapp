@@ -11,8 +11,8 @@ module Api
       end
 
       def select
-        carSelect = Car.select('cars.id, cars.title');
-        render json: {selected: carSelect}
+        driversSelect = Driver.select('drivers.id, drivers.name');
+        render json: {selected: driversSelect}
       end
 
       def index 

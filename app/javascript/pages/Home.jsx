@@ -1,22 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Logo from '../../assets/images/motorino-logo.svg'
 import CustomizedSelect from '../components/CustomizedSelect';
-import ToggleCarDriverButton from '../components/ToggleCarDriverButton';
+import CarDriverToggle from '../components/CarDriverToggle';
 import CustomizedTable from '../components/CustomizedTable';
-import { menuItems } from '../dummyData';
+import { getSelectCars, getCarDrivers } from '../api/carsApi';
+import { getSelectDrivers, getDriverCars } from '../api/driversApi';
 
 const Home = () => {
+
+  const [carDriverToggle, setCarDriverToggle] = useState('car');
+  const [selectMenuItems, setSelectMenuItems] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    if (carDriverToggle === 'driver') {
+      getSelectDrivers()
+        .then(resp => {
+          setSelectMenuItems(resp.data.selected);
+        })
+        .catch(resp => console.log(resp))
+    } else if (carDriverToggle === 'car') {
+      getSelectCars()
+        .then(resp => {
+          setSelectMenuItems(resp.data.selected);
+        })
+        .catch(resp => console.log(resp))
+    }
+  }, [carDriverToggle]);
+
+  const handleSelect = (item) => {
+    if (carDriverToggle === 'driver') {
+      getDriverCars(item.id)
+        .then(resp => {
+          setTableData(resp.data.joined);
+        })
+        .catch(resp => console.log(resp))
+    } else if (carDriverToggle === 'car') {
+      getCarDrivers(item.id)
+        .then(resp => {
+          setTableData(resp.data.joined);
+        })
+        .catch(resp => console.log(resp))
+    }
+  }
 
   return (
     <StyledContainer>
       <StyledLogo src={Logo} alt="logo" />
       <StyledSelectDiv>
-        <CustomizedSelect menuItems={menuItems} />
-        <ToggleCarDriverButton />
+        <CustomizedSelect
+          onSelect={handleSelect}
+          menuItems={selectMenuItems}
+          subject={carDriverToggle}
+        />
+        <CarDriverToggle
+          carDriverToggle={carDriverToggle}
+          setCarDriverToggle={setCarDriverToggle}
+        />
       </StyledSelectDiv>
-      <CustomizedTable />
+      <CustomizedTable tableData={tableData} />
     </StyledContainer>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -37,30 +37,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomizedSelect = ({ menuItems }) => {
+const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
   const classes = useStyles();
-  const placeholder = 'select a car';
-  const [inputSelectVal, setInputSelectVal] = useState('');
+  const [inputSelectItem, setInputSelectItem] = useState({});
+  const [placeholder, setPlaceHolder] = useState(`select a ${subject}`);
 
   const handleChange = (event) => {
-    setInputSelectVal(event.target.value);
+    const item = event.target.value;
+    setInputSelectItem(item);
+    onSelect(item);
   };
 
+  useEffect(() => {
+    setPlaceHolder(`select a ${subject}`);
+    setInputSelectItem({});
+  }, [subject]);
+
+  const renderVal = () => {
+    let val = placeholder;
+    if (Object.keys(inputSelectItem)[1]) {
+      val = inputSelectItem[Object.keys(inputSelectItem)[1]];
+    }
+    return val;
+  }
 
   return (
     <FormControl className={classes.formControl}>
       <Select
         MenuProps={{ disableScrollLock: true }}
-        value={inputSelectVal}
+        value={setInputSelectItem.id}
         onChange={handleChange}
         displayEmpty
         className={classes.selectEmpty}
         inputProps={{ 'aria-label': 'Without label' }}
-        renderValue={() => `${placeholder}`}
+        renderValue={() => renderVal()}
         input={<BootstrapInput />}
       >
         {menuItems && menuItems.map(item =>
-          (<MenuItem value={item.id}>{item.title}</MenuItem>))
+          (<MenuItem value={item} key={item.id}>{item[Object.keys(item)[1]]}</MenuItem>))
         }
       </Select>
     </FormControl>

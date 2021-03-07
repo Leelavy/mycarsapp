@@ -21,52 +21,33 @@ const useStyles = makeStyles({
   },
 });
 
-const createData = (id, name, createdAt) => {
-  return { id, name, createdAt };
-}
-
-const rows = [
-  createData('1', "mazda", "1990..."),
-  createData('2', "mazda", "1990..."),
-  createData('3', "mazda", "1990..."),
-  createData('4', "mazda", "1990..."),
-  createData('5', "mazda", "1990..."),
-  createData('1', "mazda", "1990..."),
-  createData('2', "mazda", "1990..."),
-  createData('3', "mazda", "1990..."),
-  createData('4', "mazda", "1990..."),
-  createData('5', "mazda", "1990..."),
-  createData('1', "mazda", "1990..."),
-  createData('2', "mazda", "1990..."),
-  createData('3', "mazda", "1990..."),
-  createData('4', "mazda", "1990..."),
-  createData('5', "mazda", "1990..."),
-];
-
-const CustomizedTable = () => {
+const CustomizedTable = ({ tableData }) => {
   const classes = useStyles();
+  const headlines = tableData[0] ? Object.keys(tableData[0]) : [];
+  console.log(tableData);
 
   return (
-    <TableContainer component={Paper} className={classes.container}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">ID</TableCell>
-            <TableCell align="center">NAME</TableCell>
-            <TableCell align="center">CREATED AT</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.createdAt}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {tableData.length > 0 && (
+        <TableContainer component={Paper} className={classes.container}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {headlines.map(headline =>
+                  (<TableCell align="center">{headline}</TableCell>))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableData.map((row) => (
+                <TableRow key={row.id}>
+                  {Object.values(row).map(cellData => (<TableCell align="center">{cellData}</TableCell>))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
   );
 }
 
