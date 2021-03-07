@@ -4,6 +4,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { motion } from 'framer-motion';
 import CarCard from '../components/CarCard';
+import AddButton from '../components/AddButton';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,6 +32,9 @@ const Cars = () => {
         <StyledTitleArea>
           <h1>CARS</h1>
           <Line color={theme.palette.secondary.main} />
+          <StyledLink to={`/newcar`}>
+            <AddButton label="Add new car" />
+          </StyledLink >
         </StyledTitleArea>
         <GridContainer>
           <StyledCarsGrid>
@@ -74,4 +79,11 @@ const StyledTitleArea = styled.div`
   align-items: center;
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;
+
 export default Cars;
+
+

@@ -11,6 +11,8 @@ import Drivers from '../pages/Drivers';
 import Cars from '../pages/Cars';
 import CarDetails from '../pages/CarDetails';
 import DriverDetails from '../pages/DriverDetails';
+import AddNewCar from '../pages/AddNewCar';
+import AddNewDriver from '../pages/AddNewDriver';
 
 const App = () => {
 
@@ -29,6 +31,8 @@ const App = () => {
               <Route exact path="/drivers" component={Drivers} />
               <Route exact path="/cars/:carId" component={CarDetails} />
               <Route exact path="/drivers/:driverId" component={DriverDetails} />
+              <Route exact path="/newcar" component={AddNewCar} />
+              <Route exact path="/newdriver" component={AddNewDriver} />
             </StyledContent>
           </StyledContainer>
         </Switch>

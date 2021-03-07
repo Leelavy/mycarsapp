@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.common.card,
     padding: '1rem',
     cursor: 'pointer',
-    transition: 'transform .4s',
+    transition: 'transform 0.3s ease 0s, opacity 0.3s ease 0.1s',
     position: 'relative',
-    opacity: '0.9',
+    opacity: '0.8',
     width: '100%',
     '&:hover': {
       opacity: 1,

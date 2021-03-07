@@ -4,6 +4,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { motion } from 'framer-motion';
 import DriverCard from '../components/DriverCard';
+import AddButton from '../components/AddButton';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,6 +32,9 @@ const Drivers = () => {
         <StyledTitleArea>
           <h1>DRIVERS</h1>
           <Line color={theme.palette.secondary.main} />
+          <StyledLink to={`/newdriver`}>
+            <AddButton label="Add new driver" />
+          </StyledLink >
         </StyledTitleArea>
         <GridContainer>
           <StyledCarsGrid>
@@ -73,6 +78,11 @@ const StyledTitleArea = styled(motion.div)`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
 `;
 
 export default Drivers;
