@@ -39,7 +39,7 @@ const NavBar = () => {
       <AppBar position="static" color="secondary">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-            MOTORINO
+            DRIVEBOX
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

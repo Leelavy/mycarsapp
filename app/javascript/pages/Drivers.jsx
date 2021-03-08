@@ -30,7 +30,7 @@ const Drivers = () => {
   useEffect(() => {
     getAllDrivers()
       .then(resp => {
-        setDrivers(resp.data.data)
+        setDrivers(resp.data.data.reverse())
       })
       .catch(resp => console.log(resp))
   }, [])
@@ -44,7 +44,7 @@ const Drivers = () => {
       animate="show"
       exit="exit"
     >
-      {drivers && (
+      {drivers.length > 0 && (
         <Paper className={classes.paper}>
           <StyledTitleArea>
             <Title color={theme.palette.common.title}>

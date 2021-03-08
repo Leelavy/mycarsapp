@@ -9,6 +9,8 @@ import DatePicker from './DatePicker';
 import { createDriver } from '../api/driversApi';
 import MultipleSelect from './MultipleSelect';
 import { getSelectCars } from '../api/carsApi';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -66,12 +68,16 @@ const NewDriverForm = () => {
   return (
     <Paper className={classes.paper}>
       <CustomizedTextField
+        required={true}
         label="name"
         onChange={setNameInput}
+        Icon={PersonOutlineOutlinedIcon}
       />
       <CustomizedTextField
+        required={true}
         label="email"
         onChange={setEmailInput}
+        Icon={EmailOutlinedIcon}
       />
       <DatePicker
         label="date of birth"

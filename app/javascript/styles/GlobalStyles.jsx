@@ -11,7 +11,8 @@ const GlobalStyles = createGlobalStyle`
     overflow: -moz-scrollbars-vertical; 
     overflow-y: scroll;
     &::-webkit-scrollbar{
-      width: 0.5rem;
+      width: 1rem;
+      z-index: -1;
     }
     &::-webkit-scrollbar-thumb{
       background-color: ${props => props.theme.palette.secondary.main};

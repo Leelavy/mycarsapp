@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
+import ColorLensIcon from '@material-ui/icons/ColorLens';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -38,7 +38,7 @@ const ColorSelect = ({ colorInput, onChange }) => {
     <FormControl className={classes.formControl}>
       <Grid container alignItems="flex-end">
         <Grid item>
-          <AccountCircle />
+          <ColorLensIcon />
         </Grid>
         <Grid item>
           <FormControl className={classes.formControl}>

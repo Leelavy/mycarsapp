@@ -59,7 +59,9 @@ const DriverCard = ({ driver }) => {
           <StyledBlock
             color={theme.palette.common.bullet}>
             <h5>BIRTHDAY</h5>
-            <p>{convertDate(new Date(birthday))}</p>
+            {birthday.length ?
+              <p>{convertDate(new Date(birthday))}</p> : 'None'
+            }
           </StyledBlock>
         </StyledDataDiv>
         <StyledImg src={Helmet} alt="driver-image" />

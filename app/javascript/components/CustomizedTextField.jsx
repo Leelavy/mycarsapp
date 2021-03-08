@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomizedTextField = ({ label, onChange }) => {
+const CustomizedTextField = ({ label, onChange, required = false, Icon }) => {
   const classes = useStyles();
 
   const handleChange = (e) => {
@@ -21,10 +21,11 @@ const CustomizedTextField = ({ label, onChange }) => {
     <div className={classes.container}>
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
-          <AccountCircle />
+          <Icon />
         </Grid>
         <Grid item>
           <TextField
+            required={required}
             color="secondary"
             onChange={handleChange}
             id="input-with-icon-grid"

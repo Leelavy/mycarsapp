@@ -71,12 +71,12 @@ const CarCard = ({ car }) => {
           <StyledBlock
             color={theme.palette.common.bullet}>
             <h5>Car Type</h5>
-            <p>{carType}</p>
+            <p>{carType.length ? carType : 'None'}</p>
           </StyledBlock>
           <StyledBlock
             color={theme.palette.common.bullet}>
             <h5>Color</h5>
-            <p>{color}</p>
+            <p>{color.length ? color : 'None'}</p>
           </StyledBlock>
         </StyledDataDiv>
         <StyledImg src={renderColorImage()} alt="car-image" />

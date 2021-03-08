@@ -9,6 +9,8 @@ import ColorSelect from './ColorSelect';
 import { createCar } from '../api/carsApi';
 import { getSelectDrivers } from '../api/driversApi';
 import MultipleSelect from './MultipleSelect';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
+import GradeIcon from '@material-ui/icons/Grade';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -63,12 +65,15 @@ const NewCarForm = () => {
   return (
     <Paper className={classes.paper}>
       <CustomizedTextField
+        required={true}
         label="title"
         onChange={setTitleInput}
+        Icon={DriveEtaIcon}
       />
       <CustomizedTextField
         label="type"
         onChange={setCarTypeInput}
+        Icon={GradeIcon}
       />
       <ColorSelect
         label="color"

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import DateFnsUtils from '@date-io/date-fns';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -33,11 +34,12 @@ const DatePicker = ({ onChange }) => {
     <div className={classes.margin}>
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
-          <AccountCircle />
+          <EventAvailableIcon />
         </Grid>
         <Grid item>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
+              label="Date of Birth"
               className={classes.picker}
               autoOk
               variant="inline"

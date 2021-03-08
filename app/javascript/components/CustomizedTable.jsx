@@ -9,10 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { convertDate } from '../utils/utils';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     maxWidth: 800,
     margin: '2rem 0',
+    backgroundColor: theme.palette.common.paper,
   },
   table: {
     minWidth: 300,
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
       padding: '1rem 0 1rem 2rem',
     },
   },
-});
+}));
 
 const renderCell = (key, val) => {
   if (key === 'created_at') {
@@ -36,8 +37,14 @@ const CustomizedTable = ({ tableData }) => {
   return (
     <>
       {tableData.length > 0 && (
-        <TableContainer component={Paper} className={classes.container}>
-          <Table className={classes.table} aria-label="simple table">
+        <TableContainer
+          component={Paper}
+          className={classes.container}
+        >
+          <Table
+            className={classes.table}
+            aria-label="simple table"
+          >
             <TableHead>
               <TableRow>
                 {headlines.length && headlines.map(headline =>

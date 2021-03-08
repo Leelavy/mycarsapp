@@ -29,7 +29,7 @@ const Cars = () => {
 
   useEffect(() => {
     getAllCars()
-      .then(resp => setCars(resp.data.data))
+      .then(resp => setCars(resp.data.data.reverse()))
       .catch(resp => console.log(resp))
   }, [])
 
@@ -52,12 +52,12 @@ const Cars = () => {
             </StyledLink >
           </StyledTitleArea>
           <GridContainer>
-            <StyledCarsGrid>
+            <StyledGrid>
               {cars.length > 0 &&
                 cars.map(car =>
                   <CarCard car={car} key={car.id} />
                 )}
-            </StyledCarsGrid>
+            </StyledGrid>
           </GridContainer>
         </Paper>
       )}
@@ -69,7 +69,7 @@ const StyledContainer = styled(motion.div)`
   width: 100%;
 `;
 
-const StyledCarsGrid = styled(motion.div)`
+const StyledGrid = styled(motion.div)`
   z-index: 1;
   width: 100%;
   display: grid;
@@ -89,21 +89,19 @@ const Line = styled(motion.div)`
   background: ${props => props.color};
 `;
 
-const StyledTitleArea = styled.div`
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const StyledLink = styled(Link)`
   color: inherit;
   text-decoration: none;
 `;
 
 const Title = styled.h1`
-  color: ${props => props.color}
+  color: ${props => props.color};
+`;
+
+const StyledTitleArea = styled(motion.div)`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default Cars;
-
-

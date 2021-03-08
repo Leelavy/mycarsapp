@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
@@ -45,7 +45,7 @@ const StyledContainer = styled(motion.div)`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 2rem 0;
+  padding: 3rem 0;
 `;
 
 const StyledContent = styled(motion.div)`
