@@ -67,9 +67,9 @@ const Home = () => {
           setCarDriverToggle={setCarDriverToggle}
         />
       </StyledSelectDiv>
-      {selectMenuItems.length && (
+      {selectMenuItems.length > 0 &&
         <CustomizedTable tableData={tableData} />
-      )}
+      }
     </StyledContainer>
   );
 }
