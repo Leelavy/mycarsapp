@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { convertDate } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -38,14 +39,14 @@ const useStyles = makeStyles((theme) => ({
 const DriverCard = ({ driver }) => {
 
   const classes = useStyles();
-  const { name, email, date_of_birth } = driver.attributes;
+  const { name, email, date_of_birth: birthDay } = driver.attributes;
 
   return (
     <StyledLink to={`/drivers/${driver.id}`}>
       <Paper className={classes.paper}>
         <StyledName>{name}</StyledName>
         <StyledEmail>{email}</StyledEmail>
-        <StyledBirthDay>{date_of_birth}</StyledBirthDay>
+        <StyledBirthDay>{convertDate(new Date(birthDay))}</StyledBirthDay>
       </Paper>
     </StyledLink >
   );

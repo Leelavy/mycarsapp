@@ -9,26 +9,22 @@ import { getSelectCars, getCarDrivers } from '../api/carsApi';
 import { getSelectDrivers, getDriverCars } from '../api/driversApi';
 
 const Home = () => {
-
   const [carDriverToggle, setCarDriverToggle] = useState('car');
   const [selectMenuItems, setSelectMenuItems] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     if (carDriverToggle === 'driver') {
-      getSelectDrivers()
-        .then(resp => {
-          setSelectMenuItems(resp.data.selected);
-        })
-        .catch(resp => console.log(resp))
+      sendRequest(getSelectDrivers);
     } else if (carDriverToggle === 'car') {
-      getSelectCars()
-        .then(resp => {
-          setSelectMenuItems(resp.data.selected);
-        })
-        .catch(resp => console.log(resp))
+      sendRequest(getSelectCars);
     }
   }, [carDriverToggle]);
+
+  useEffect(() => {
+    return selectMenuItems.length ? setIsDisabled(false) : setIsDisabled(true);
+  }, [selectMenuItems])
 
   const handleSelect = (item) => {
     if (carDriverToggle === 'driver') {
@@ -46,6 +42,15 @@ const Home = () => {
     }
   }
 
+  const sendRequest = async (action) => {
+    try {
+      const resp = await action();
+      setSelectMenuItems(resp.data.selected);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <StyledContainer>
       <StyledLogo src={Logo} alt="logo" />
@@ -54,13 +59,17 @@ const Home = () => {
           onSelect={handleSelect}
           menuItems={selectMenuItems}
           subject={carDriverToggle}
+          isDisabled={isDisabled}
         />
         <CarDriverToggle
           carDriverToggle={carDriverToggle}
           setCarDriverToggle={setCarDriverToggle}
+          isDisabled={isDisabled}
         />
       </StyledSelectDiv>
-      <CustomizedTable tableData={tableData} />
+      {selectMenuItems.length && (
+        <CustomizedTable tableData={tableData} />
+      )}
     </StyledContainer>
   );
 }

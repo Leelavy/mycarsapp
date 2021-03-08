@@ -10,8 +10,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomizedTextField = ({ label }) => {
+const CustomizedTextField = ({ label, onChange }) => {
   const classes = useStyles();
+
+  const handleChange = (e) => {
+    onChange(e.target.value);
+  }
 
   return (
     <div className={classes.margin}>
@@ -20,7 +24,11 @@ const CustomizedTextField = ({ label }) => {
           <AccountCircle />
         </Grid>
         <Grid item>
-          <TextField id="input-with-icon-grid" label={label} />
+          <TextField
+            onChange={handleChange}
+            id="input-with-icon-grid"
+            label={label}
+          />
         </Grid>
       </Grid>
     </div>

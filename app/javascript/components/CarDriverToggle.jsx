@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle }) => {
+const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle, isDisabled }) => {
 
   const classes = useStyles();
   const handleToggle = (event, toggled) => {
@@ -30,10 +30,20 @@ const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle }) => {
       onChange={handleToggle}
       aria-label="carDriverToggle"
     >
-      <ToggleButton className={classes.toggleButton} value="car" aria-label="left aligned" >
+      <ToggleButton
+        className={classes.toggleButton}
+        value="car"
+        disabled={isDisabled}
+        aria-label="left aligned"
+      >
         <DriveEtaIcon />
       </ToggleButton>
-      <ToggleButton className={classes.toggleButton} value="driver" aria-label="right aligned">
+      <ToggleButton
+        className={classes.toggleButton}
+        value="driver"
+        aria-label="right aligned"
+        disabled={isDisabled}
+      >
         <PeopleAltIcon />
       </ToggleButton>
     </ToggleButtonGroup>

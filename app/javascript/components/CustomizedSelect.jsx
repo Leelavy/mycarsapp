@@ -37,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
+const CustomizedSelect = ({ menuItems, subject, onSelect, isDisabled }) => {
   const classes = useStyles();
   const [inputSelectItem, setInputSelectItem] = useState({});
   const [placeholder, setPlaceHolder] = useState(`select a ${subject}`);
-  const [isDisabled, setIsDisable] = useState(false);
+  const [isDisabledSelect, setIsDisabledSelect] = useState(false);
 
   const handleChange = (event) => {
     const item = event.target.value;
@@ -50,12 +50,19 @@ const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
   };
 
   useEffect(() => {
+    setIsDisabledSelect(isDisabled);
+  }, [isDisabled])
+
+  useEffect(() => {
     if (subject === null) {
       setPlaceHolder(`You must choose either cars or drivers in the toggle to continue`);
-      setIsDisable(true);
+      setIsDisabledSelect(true);
+    } else if (isDisabled && menuItems.length === 0) {
+      setPlaceHolder(`No data to choose from. Add new cars or drivers`);
+      setIsDisabledSelect(true);
     } else {
       setPlaceHolder(`select a ${subject}`);
-      setIsDisable(false)
+      setIsDisabledSelect(false)
     }
     setInputSelectItem({});
   }, [subject]);
@@ -72,10 +79,10 @@ const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
     <FormControl className={classes.formControl}>
       <Select
         MenuProps={{ disableScrollLock: true }}
-        value={setInputSelectItem.id}
+        value={inputSelectItem}
         onChange={handleChange}
         displayEmpty
-        disabled={isDisabled}
+        disabled={isDisabledSelect}
         className={classes.selectEmpty}
         inputProps={{ 'aria-label': 'Without label' }}
         renderValue={() => renderVal()}
