@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
+  container: {
     margin: theme.spacing(2),
   },
 }));
@@ -18,13 +18,14 @@ const CustomizedTextField = ({ label, onChange }) => {
   }
 
   return (
-    <div className={classes.margin}>
+    <div className={classes.container}>
       <Grid container spacing={1} alignItems="flex-end">
         <Grid item>
           <AccountCircle />
         </Grid>
         <Grid item>
           <TextField
+            color="secondary"
             onChange={handleChange}
             id="input-with-icon-grid"
             label={label}

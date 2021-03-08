@@ -37,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomizedSelect = ({ menuItems, subject, onSelect, isDisabled }) => {
+const CustomizedSelect = ({ menuItems, subject, onSelect }) => {
   const classes = useStyles();
   const [inputSelectItem, setInputSelectItem] = useState({});
   const [placeholder, setPlaceHolder] = useState(`select a ${subject}`);
-  const [isDisabledSelect, setIsDisabledSelect] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleChange = (event) => {
     const item = event.target.value;
@@ -50,19 +50,12 @@ const CustomizedSelect = ({ menuItems, subject, onSelect, isDisabled }) => {
   };
 
   useEffect(() => {
-    setIsDisabledSelect(isDisabled);
-  }, [isDisabled])
-
-  useEffect(() => {
     if (subject === null) {
       setPlaceHolder(`You must choose either cars or drivers in the toggle to continue`);
-      setIsDisabledSelect(true);
-    } else if (isDisabled && menuItems.length === 0) {
-      setPlaceHolder(`No data to choose from. Add new cars or drivers`);
-      setIsDisabledSelect(true);
+      setIsDisabled(true);
     } else {
       setPlaceHolder(`select a ${subject}`);
-      setIsDisabledSelect(false)
+      setIsDisabled(false)
     }
     setInputSelectItem({});
   }, [subject]);
@@ -82,7 +75,7 @@ const CustomizedSelect = ({ menuItems, subject, onSelect, isDisabled }) => {
         value={inputSelectItem}
         onChange={handleChange}
         displayEmpty
-        disabled={isDisabledSelect}
+        disabled={isDisabled}
         className={classes.selectEmpty}
         inputProps={{ 'aria-label': 'Without label' }}
         renderValue={() => renderVal()}

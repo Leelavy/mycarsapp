@@ -17,8 +17,10 @@ const AddNewDriver = () => {
       exit="exit"
     >
       <StyledTitleArea>
-        <h1>ADD NEW DRIVER</h1>
-        <Line color={theme.palette.secondary.main} />
+        <Title color={theme.palette.common.title}>
+          ADD NEW DRIVER
+        </Title>
+        <Line color={theme.palette.primary.main} />
       </StyledTitleArea>
       <NewDriverForm />
     </StyledContainer>
@@ -44,6 +46,10 @@ const Line = styled(motion.div)`
   height: 0.3rem;
   margin: 1rem 0;
   background: ${props => props.color};
+`;
+
+const Title = styled.h1`
+  color: ${props => props.color}
 `;
 
 export default AddNewDriver;

@@ -7,6 +7,7 @@ import CarCard from '../components/CarCard';
 import AddButton from '../components/AddButton';
 import { Link } from 'react-router-dom';
 import { getAllCars } from '../api/carsApi';
+import { fade } from '../styles/animations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,25 +35,32 @@ const Cars = () => {
 
   return (
     <StyledContainer
-    //adnimation...
+      variants={fade}
+      initial="hidden"
+      animate="show"
+      exit="exit"
     >
-      <Paper className={classes.paper}>
-        <StyledTitleArea>
-          <h1>CARS</h1>
-          <Line color={theme.palette.secondary.main} />
-          <StyledLink to={`/newcar`}>
-            <AddButton label="Add new car" />
-          </StyledLink >
-        </StyledTitleArea>
-        <GridContainer>
-          <StyledCarsGrid>
-            {cars.length > 0 &&
-              cars.map(car =>
-                <CarCard car={car} key={car.id} />
-              )}
-          </StyledCarsGrid>
-        </GridContainer>
-      </Paper>
+      {cars && (
+        <Paper className={classes.paper}>
+          <StyledTitleArea>
+            <Title color={theme.palette.common.title}>
+              CARS
+            </Title>
+            <Line color={theme.palette.primary.main} />
+            <StyledLink to={`/newcar`}>
+              <AddButton label="Add new car" />
+            </StyledLink >
+          </StyledTitleArea>
+          <GridContainer>
+            <StyledCarsGrid>
+              {cars.length > 0 &&
+                cars.map(car =>
+                  <CarCard car={car} key={car.id} />
+                )}
+            </StyledCarsGrid>
+          </GridContainer>
+        </Paper>
+      )}
     </StyledContainer>
   );
 }
@@ -90,6 +98,10 @@ const StyledTitleArea = styled.div`
 const StyledLink = styled(Link)`
   color: inherit;
   text-decoration: none;
+`;
+
+const Title = styled.h1`
+  color: ${props => props.color}
 `;
 
 export default Cars;

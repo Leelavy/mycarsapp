@@ -11,11 +11,14 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   toggleButton: {
-    color: 'white',
+    color: theme.palette.secondary.main,
+    '&.Mui-selected': {
+      color: 'white',
+    }
   },
 }));
 
-const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle, isDisabled }) => {
+const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle }) => {
 
   const classes = useStyles();
   const handleToggle = (event, toggled) => {
@@ -33,7 +36,6 @@ const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle, isDisabled }) =>
       <ToggleButton
         className={classes.toggleButton}
         value="car"
-        disabled={isDisabled}
         aria-label="left aligned"
       >
         <DriveEtaIcon />
@@ -42,7 +44,6 @@ const CarDriverToggle = ({ carDriverToggle, setCarDriverToggle, isDisabled }) =>
         className={classes.toggleButton}
         value="driver"
         aria-label="right aligned"
-        disabled={isDisabled}
       >
         <PeopleAltIcon />
       </ToggleButton>

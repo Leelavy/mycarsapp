@@ -7,12 +7,12 @@ import CarDriverToggle from '../components/CarDriverToggle';
 import CustomizedTable from '../components/CustomizedTable';
 import { getSelectCars, getCarDrivers } from '../api/carsApi';
 import { getSelectDrivers, getDriverCars } from '../api/driversApi';
+import { pageAnimationFromBottom } from '../styles/animations';
 
 const Home = () => {
   const [carDriverToggle, setCarDriverToggle] = useState('car');
   const [selectMenuItems, setSelectMenuItems] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     if (carDriverToggle === 'driver') {
@@ -21,10 +21,6 @@ const Home = () => {
       sendRequest(getSelectCars);
     }
   }, [carDriverToggle]);
-
-  useEffect(() => {
-    return selectMenuItems.length ? setIsDisabled(false) : setIsDisabled(true);
-  }, [selectMenuItems])
 
   const handleSelect = (item) => {
     if (carDriverToggle === 'driver') {
@@ -52,19 +48,22 @@ const Home = () => {
   };
 
   return (
-    <StyledContainer>
+    <StyledContainer
+      variants={pageAnimationFromBottom}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
       <StyledLogo src={Logo} alt="logo" />
       <StyledSelectDiv>
         <CustomizedSelect
           onSelect={handleSelect}
           menuItems={selectMenuItems}
           subject={carDriverToggle}
-          isDisabled={isDisabled}
         />
         <CarDriverToggle
           carDriverToggle={carDriverToggle}
           setCarDriverToggle={setCarDriverToggle}
-          isDisabled={isDisabled}
         />
       </StyledSelectDiv>
       {selectMenuItems.length && (
@@ -80,6 +79,7 @@ const StyledContainer = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 3rem;
 `;
 
 const StyledLogo = styled(motion.img)`

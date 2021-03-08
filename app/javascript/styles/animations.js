@@ -8,7 +8,7 @@ export const pageAnimationFromBottom = {
     y: 0,
     transition: {
       duration: 0.5,
-      delay: 0.3,
+      delay: 0.2,
       when: 'beforeChildren',
       staggerChildren: 0.25,
     },
@@ -26,8 +26,9 @@ export const fade = {
   show: {
     opacity: 1,
     transition: {
+      delay: 0.2,
       ease: 'easeOut',
-      duration: 0.75,
+      duration: 0.3,
     },
   },
 };

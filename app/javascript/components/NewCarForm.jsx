@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '450px',
     minHeight: '300px',
     borderRadius: '1rem',
-    background: theme.palette.common.card,
+    background: theme.palette.common.paper,
     padding: '1rem',
+    marginTop: '2rem',
   }
 }));
 

@@ -7,7 +7,7 @@ import DriverCard from '../components/DriverCard';
 import AddButton from '../components/AddButton';
 import { Link } from 'react-router-dom';
 import { getAllDrivers } from '../api/driversApi';
-import { convertDate } from '../utils/utils';
+import { fade } from '../styles/animations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,27 +35,36 @@ const Drivers = () => {
       .catch(resp => console.log(resp))
   }, [])
 
+  console.log(drivers);
+
   return (
     <StyledContainer
-    //adnimation...
+      variants={fade}
+      initial="hidden"
+      animate="show"
+      exit="exit"
     >
-      <Paper className={classes.paper}>
-        <StyledTitleArea>
-          <h1>DRIVERS</h1>
-          <Line color={theme.palette.secondary.main} />
-          <StyledLink to={`/newdriver`}>
-            <AddButton label="Add new driver" />
-          </StyledLink >
-        </StyledTitleArea>
-        <GridContainer>
-          <StyledCarsGrid>
-            {drivers.length > 0 &&
-              drivers.map(driver =>
-                <DriverCard driver={driver} key={driver.id} />
-              )}
-          </StyledCarsGrid>
-        </GridContainer>
-      </Paper>
+      {drivers && (
+        <Paper className={classes.paper}>
+          <StyledTitleArea>
+            <Title color={theme.palette.common.title}>
+              DRIVERS
+            </Title>
+            <Line color={theme.palette.secondary.main} />
+            <StyledLink to={`/newdriver`}>
+              <AddButton label="Add new driver" />
+            </StyledLink >
+          </StyledTitleArea>
+          <GridContainer>
+            <StyledCarsGrid>
+              {drivers.length > 0 &&
+                drivers.map(driver =>
+                  <DriverCard driver={driver} key={driver.id} />
+                )}
+            </StyledCarsGrid>
+          </GridContainer>
+        </Paper>
+      )}
     </StyledContainer>
 
   );
@@ -94,6 +103,10 @@ const StyledTitleArea = styled(motion.div)`
 const StyledLink = styled(Link)`
   color: inherit;
   text-decoration: none;
+`;
+
+const Title = styled.h1`
+  color: ${props => props.color}
 `;
 
 export default Drivers;

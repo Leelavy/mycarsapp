@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { pageAnimationFromBottom } from '../styles/animations';
 import { motion } from 'framer-motion';
 import { getDriverById } from '../api/driversApi';
+import { fade } from '../styles/animations';
 
 const DriverDetails = () => {
 
@@ -30,8 +31,8 @@ const DriverDetails = () => {
   }, []);
 
   return (
-    <motion.div
-      variants={pageAnimationFromBottom}
+    <StyledContainer
+      variants={fade}
       initial="hidden"
       animate="show"
       exit="exit"
@@ -49,8 +50,12 @@ const DriverDetails = () => {
           <p>{car.attributes.color}</p>
         </div>
       ))}
-    </motion.div>
+    </StyledContainer>
   );
 }
+
+const StyledContainer = styled(motion.div)`
+  width: 100%;
+`;
 
 export default DriverDetails;
