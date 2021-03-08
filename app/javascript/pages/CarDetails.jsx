@@ -35,19 +35,25 @@ const CarDetails = () => {
   });
 
   useEffect(() => {
-    getCarById(carId)
-      .then(resp => {
-        setCarDetails({
-          title: resp.data.data.attributes.title,
-          carType: resp.data.data.attributes.car_type,
-          color: resp.data.data.attributes.color,
-          drivers: resp.data.included,
-        });
-      })
-      .catch(resp => console.log(resp))
+    sendRequest(getCarById, carId);
   }, []);
 
+  const sendRequest = async (action, carId) => {
+    try {
+      const resp = await action(carId);
+      setCarDetails({
+        title: resp.data.data.attributes.title,
+        carType: resp.data.data.attributes.car_type,
+        color: resp.data.data.attributes.color,
+        drivers: resp.data.included,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   console.log(carDetails);
+
   return (
     <StyledContainer
       variants={fade}

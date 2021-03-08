@@ -28,14 +28,17 @@ const Drivers = () => {
   const [drivers, setDrivers] = useState([]);
 
   useEffect(() => {
-    getAllDrivers()
-      .then(resp => {
-        setDrivers(resp.data.data.reverse())
-      })
-      .catch(resp => console.log(resp))
+    sendRequest(getAllDrivers);
   }, [])
 
-  console.log(drivers);
+  const sendRequest = async (action) => {
+    try {
+      const resp = await action();
+      setDrivers(resp.data.data.reverse());
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <StyledContainer

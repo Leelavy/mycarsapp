@@ -28,10 +28,17 @@ const Cars = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    getAllCars()
-      .then(resp => setCars(resp.data.data.reverse()))
-      .catch(resp => console.log(resp))
+    sendRequest(getAllCars);
   }, [])
+
+  const sendRequest = async (action) => {
+    try {
+      const resp = await action();
+      setCars(resp.data.data.reverse());
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <StyledContainer

@@ -24,17 +24,9 @@ const Home = () => {
 
   const handleSelect = (item) => {
     if (carDriverToggle === 'driver') {
-      getDriverCars(item.id)
-        .then(resp => {
-          setTableData(resp.data.joined);
-        })
-        .catch(resp => console.log(resp))
+      sendSelectRequest(getDriverCars, item.id);
     } else if (carDriverToggle === 'car') {
-      getCarDrivers(item.id)
-        .then(resp => {
-          setTableData(resp.data.joined);
-        })
-        .catch(resp => console.log(resp))
+      sendSelectRequest(getCarDrivers, item.id);
     }
   }
 
@@ -46,6 +38,15 @@ const Home = () => {
       console.error(err);
     }
   };
+
+  const sendSelectRequest = async (action, id) => {
+    try {
+      const resp = await action(id);
+      setTableData(resp.data.joined);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <StyledContainer

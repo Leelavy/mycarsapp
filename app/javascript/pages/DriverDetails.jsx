@@ -36,17 +36,22 @@ const DriverDetails = () => {
   });
 
   useEffect(() => {
-    getDriverById(driverId)
-      .then(resp => {
-        setDriverDetails({
-          name: resp.data.data.attributes.name,
-          email: resp.data.data.attributes.email,
-          birthday: resp.data.data.attributes.date_of_birth,
-          cars: resp.data.included,
-        });
-      })
-      .catch(resp => console.log(resp))
+    sendRequest(getDriverById, driverId)
   }, []);
+
+  const sendRequest = async (action, driverId) => {
+    try {
+      const resp = await action(driverId);
+      setDriverDetails({
+        name: resp.data.data.attributes.name,
+        email: resp.data.data.attributes.email,
+        birthday: resp.data.data.attributes.date_of_birth,
+        cars: resp.data.included,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <StyledContainer

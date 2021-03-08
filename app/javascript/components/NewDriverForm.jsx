@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomizedTextField from './CustomizedTextField';
 import AddButton from './AddButton';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import DatePicker from './DatePicker';
 import { createDriver } from '../api/driversApi';
 import MultipleSelect from './MultipleSelect';
@@ -35,23 +35,14 @@ const useStyles = makeStyles((theme) => ({
 const NewDriverForm = () => {
 
   const classes = useStyles();
+  const history = useHistory();
   const [nameInput, setNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [dateInput, setDateInput] = useState(new Date());
   const [selectMenuItems, setSelectMenuItems] = useState([]);
   const [selectedCars, setSelectedCars] = useState([]);
-
-  const handleAddClick = () => {
-    const carsIds = [];
-    selectMenuItems.forEach(item => {
-      if (selectedCars.includes(item.title)) {
-        carsIds.push(item.id)
-      }
-    });
-    createDriver(nameInput, emailInput, dateInput, carsIds)
-      .then(resp => console.log(resp))
-      .catch(resp => console.log(resp))
-  }
+  const [inputError, setInputError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
 
   const handleSelect = (itemsSelected) => {
     setSelectedCars(itemsSelected);
@@ -64,6 +55,31 @@ const NewDriverForm = () => {
       })
       .catch(resp => console.log(resp))
   }, []);
+
+  const handleAddClick = () => {
+    if (nameInput.length && isValidEmail(emailInput)) {
+      const carsIds = [];
+      selectMenuItems.forEach(item => {
+        if (selectedCars.includes(item.title)) {
+          carsIds.push(item.id)
+        }
+      });
+      createDriver(nameInput, emailInput, dateInput, carsIds)
+        .then(history.push('/drivers'))
+        .catch(resp => {
+          setErrorMsg('error from server: ' + resp);
+          setInputError(true);
+        })
+    }
+    else {
+      setErrorMsg('Name and email must be provided');
+      setInputError(true);
+    }
+  }
+
+  const isValidEmail = (email) => {
+    return email.match(/.+@.+/);
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -88,19 +104,20 @@ const NewDriverForm = () => {
         menuItems={selectMenuItems}
         subject="cars"
       />
-      <StyledLink to="/drivers">
-        <AddButton
-          onClick={handleAddClick}
-          label="Create Driver"
-        />
-      </StyledLink>
+      <ErrorMsg>
+        {inputError ? errorMsg : ''}
+      </ErrorMsg>
+      <AddButton
+        onClick={handleAddClick}
+        label="Create Driver"
+      />
     </Paper>
   );
 }
 
-const StyledLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
+const ErrorMsg = styled.p`
+  color: red;
+  font-size: 1rem;
 `;
 
 export default NewDriverForm;

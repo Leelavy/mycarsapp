@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomizedTextField from './CustomizedTextField';
 import AddButton from './AddButton';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ColorSelect from './ColorSelect';
 import { createCar } from '../api/carsApi';
 import { getSelectDrivers } from '../api/driversApi';
@@ -32,23 +32,14 @@ const useStyles = makeStyles((theme) => ({
 const NewCarForm = () => {
 
   const classes = useStyles();
+  const history = useHistory();
   const [titleInput, setTitleInput] = useState('');
   const [carTypeInput, setCarTypeInput] = useState('');
   const [colorInput, setColorInput] = useState('');
   const [selectMenuItems, setSelectMenuItems] = useState([]);
   const [selectedDrivers, setSelectedDrivers] = useState([]);
-
-  const handleAddClick = () => {
-    const driversIds = [];
-    selectMenuItems.forEach(item => {
-      if (selectedDrivers.includes(item.name)) {
-        driversIds.push(item.id)
-      }
-    });
-    createCar(titleInput, carTypeInput, colorInput, driversIds)
-      .then(resp => console.log(resp))
-      .catch(resp => console.log(resp))
-  }
+  const [inputError, setInputError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
 
   const handleSelect = (itemsSelected) => {
     setSelectedDrivers(itemsSelected);
@@ -61,6 +52,28 @@ const NewCarForm = () => {
       })
       .catch(resp => console.log(resp))
   }, []);
+
+  const handleAddClick = () => {
+    if (titleInput.length) {
+      const driversIds = [];
+      selectMenuItems.forEach(item => {
+        if (selectedDrivers.includes(item.name)) {
+          driversIds.push(item.id)
+        }
+      });
+      createCar(titleInput, carTypeInput, colorInput, driversIds)
+        .then(history.push('/cars'))
+        .catch(resp => {
+          setErrorMsg('error from server: ' + resp);
+          setInputError(true);
+        })
+        ;
+    }
+    else {
+      setErrorMsg('Name and email must be provided');
+      setInputError(true);
+    }
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -85,18 +98,20 @@ const NewCarForm = () => {
         menuItems={selectMenuItems}
         subject="drivers"
       />
-      <StyledLink to="/cars">
-        <AddButton
-          onClick={handleAddClick}
-          label="Create Car" />
-      </StyledLink>
+      <ErrorMsg>
+        {inputError ? errorMsg : ''}
+      </ErrorMsg>
+      <AddButton
+        onClick={handleAddClick}
+        label="Create Car" />
     </Paper>
   );
 }
 
-const StyledLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
+
+const ErrorMsg = styled.p`
+  color: red;
+  font-size: 1rem;
 `;
 
 export default NewCarForm;
